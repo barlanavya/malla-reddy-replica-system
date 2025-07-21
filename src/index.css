@@ -2,39 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* University Design System - Light, professional theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 215 84% 35%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 215 70% 90%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 15% 92%;
+    --secondary-foreground: 215 25% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 15% 96%;
+    --muted-foreground: 215 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 43 96% 88%;
+    --accent-foreground: 215 25% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 15% 88%;
+    --input: 215 15% 88%;
+    --ring: 215 84% 35%;
+
+    /* University specific colors */
+    --university-navy: 215 84% 25%;
+    --university-blue: 215 84% 35%;
+    --university-light-blue: 215 70% 90%;
+    --university-gold: 43 96% 70%;
+    --university-light-gold: 43 96% 88%;
+    --university-gray: 215 15% 45%;
+    --university-light-gray: 215 15% 96%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(215 84% 35%), hsl(215 84% 45%));
+    --gradient-hero: linear-gradient(135deg, hsl(215 84% 25%), hsl(215 84% 35%));
+    --gradient-accent: linear-gradient(135deg, hsl(43 96% 70%), hsl(43 96% 80%));
+
+    /* Shadows */
+    --shadow-soft: 0 2px 15px -3px hsl(215 84% 35% / 0.1);
+    --shadow-medium: 0 4px 25px -5px hsl(215 84% 35% / 0.15);
+    --shadow-strong: 0 8px 35px -8px hsl(215 84% 35% / 0.25);
 
     --radius: 0.5rem;
 
