@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, User, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -36,7 +37,7 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
               <GraduationCap className="w-6 h-6 text-primary-foreground" />
             </div>
@@ -44,7 +45,7 @@ const Header = () => {
               <h1 className="text-lg font-bold text-university-navy">Malla Reddy University</h1>
               <p className="text-xs text-university-gray">Excellence in Education</p>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
@@ -82,10 +83,12 @@ const Header = () => {
 
           {/* Student Login Button */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              <User className="w-4 h-4 mr-2" />
-              Student Login
-            </Button>
+            <Link to="/login">
+              <Button variant="outline" size="sm">
+                <User className="w-4 h-4 mr-2" />
+                Student Login
+              </Button>
+            </Link>
             <Button size="sm" className="bg-gradient-primary">
               Apply Now
             </Button>
@@ -127,10 +130,12 @@ const Header = () => {
               </div>
             ))}
             <div className="mt-4 space-y-2">
-              <Button variant="outline" size="sm" className="w-full">
-                <User className="w-4 h-4 mr-2" />
-                Student Login
-              </Button>
+              <Link to="/login" className="block">
+                <Button variant="outline" size="sm" className="w-full">
+                  <User className="w-4 h-4 mr-2" />
+                  Student Login
+                </Button>
+              </Link>
               <Button size="sm" className="w-full bg-gradient-primary">
                 Apply Now
               </Button>

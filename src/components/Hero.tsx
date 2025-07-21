@@ -1,4 +1,5 @@
 import { ArrowRight, Award, Users, BookOpen } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import heroImage from '@/assets/university-hero.jpg';
@@ -65,9 +66,11 @@ const Hero = () => {
               <Card className="p-6 bg-white/95 backdrop-blur-sm border-0 shadow-medium hover:shadow-strong transition-all duration-300 hover:-translate-y-1">
                 <h3 className="text-xl font-semibold text-university-navy mb-2">Student Portal</h3>
                 <p className="text-university-gray mb-4">Access your academic records, fee status, and course materials.</p>
-                <Button variant="outline" size="sm" className="w-full border-university-blue text-university-blue hover:bg-university-blue hover:text-white">
-                  Login
-                </Button>
+                <Link to="/login">
+                  <Button variant="outline" size="sm" className="w-full border-university-blue text-university-blue hover:bg-university-blue hover:text-white">
+                    Login
+                  </Button>
+                </Link>
               </Card>
 
               <Card className="p-6 bg-white/95 backdrop-blur-sm border-0 shadow-medium hover:shadow-strong transition-all duration-300 hover:-translate-y-1">
