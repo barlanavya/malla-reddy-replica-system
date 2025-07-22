@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +10,9 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import FeePayment from "./pages/FeePayment";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import AcademicCalendar from "./pages/AcademicCalendar";
+import ApplyAdmission from "./pages/ApplyAdmission";
+import StudentsData from "./pages/StudentsData";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -28,6 +32,9 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/fee-payment" element={<FeePayment />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/academic-calendar" element={<AcademicCalendar />} />
+            <Route path="/apply-admission" element={<ApplyAdmission />} />
+            <Route path="/students-data" element={<StudentsData />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
