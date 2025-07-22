@@ -1,4 +1,3 @@
-
 import { ArrowRight, Award, Users, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -42,11 +41,9 @@ const Hero = () => {
                 Explore Programs
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Link to="/academic-calendar">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-university-navy w-full">
-                  View Calendar
-                </Button>
-              </Link>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-university-navy">
+                Virtual Tour
+              </Button>
             </div>
 
             {/* Stats */}
@@ -79,21 +76,17 @@ const Hero = () => {
               <Card className="p-6 bg-white/95 backdrop-blur-sm border-0 shadow-medium hover:shadow-strong transition-all duration-300 hover:-translate-y-1">
                 <h3 className="text-xl font-semibold text-university-navy mb-2">Apply for Admission</h3>
                 <p className="text-university-gray mb-4">Start your journey with us. Apply online for various programs.</p>
-                <Link to="/apply-admission">
-                  <Button size="sm" className="w-full bg-gradient-primary">
-                    Apply Now
-                  </Button>
-                </Link>
+                <Button size="sm" className="w-full bg-gradient-primary">
+                  Apply Now
+                </Button>
               </Card>
 
               <Card className="p-6 bg-white/95 backdrop-blur-sm border-0 shadow-medium hover:shadow-strong transition-all duration-300 hover:-translate-y-1">
                 <h3 className="text-xl font-semibold text-university-navy mb-2">Academic Calendar</h3>
                 <p className="text-university-gray mb-4">View important dates, exam schedules, and academic events.</p>
-                <Link to="/academic-calendar">
-                  <Button variant="outline" size="sm" className="w-full border-university-blue text-university-blue hover:bg-university-blue hover:text-white">
-                    View Calendar
-                  </Button>
-                </Link>
+                <Button variant="outline" size="sm" className="w-full border-university-blue text-university-blue hover:bg-university-blue hover:text-white">
+                  View Calendar
+                </Button>
               </Card>
             </div>
           </div>

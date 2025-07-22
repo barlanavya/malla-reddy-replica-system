@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, User, GraduationCap } from 'lucide-react';
@@ -9,7 +8,7 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const menuItems = [
-    { name: 'Home', href: '/' },
+    { name: 'Home', href: '#home' },
     {
       name: 'About',
       href: '#about',
@@ -28,9 +27,7 @@ const Header = () => {
         { name: 'Faculty', href: '#faculty' },
       ]
     },
-    { name: 'Admissions', href: '/apply-admission' },
-    { name: 'Academic Calendar', href: '/academic-calendar' },
-    { name: 'Students Data', href: '/students-data' },
+    { name: 'Admissions', href: '#admissions' },
     { name: 'Campus Life', href: '#campus' },
     { name: 'Contact', href: '#contact' },
   ];
@@ -51,7 +48,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center space-x-8">
             {menuItems.map((item) => (
               <div
                 key={item.name}
@@ -59,13 +56,13 @@ const Header = () => {
                 onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <Link
-                  to={item.href}
-                  className="flex items-center text-foreground hover:text-primary transition-colors font-medium text-sm"
+                <a
+                  href={item.href}
+                  className="flex items-center text-foreground hover:text-primary transition-colors font-medium"
                 >
                   {item.name}
                   {item.dropdown && <ChevronDown className="w-4 h-4 ml-1" />}
-                </Link>
+                </a>
                 
                 {item.dropdown && activeDropdown === item.name && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-card rounded-lg shadow-medium border border-border py-2">
@@ -92,11 +89,9 @@ const Header = () => {
                 Student Login
               </Button>
             </Link>
-            <Link to="/apply-admission">
-              <Button size="sm" className="bg-gradient-primary">
-                Apply Now
-              </Button>
-            </Link>
+            <Button size="sm" className="bg-gradient-primary">
+              Apply Now
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -113,13 +108,12 @@ const Header = () => {
           <div className="lg:hidden py-4 border-t border-border">
             {menuItems.map((item) => (
               <div key={item.name} className="py-2">
-                <Link
-                  to={item.href}
+                <a
+                  href={item.href}
                   className="block text-foreground hover:text-primary font-medium"
-                  onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </Link>
+                </a>
                 {item.dropdown && (
                   <div className="ml-4 mt-2 space-y-1">
                     {item.dropdown.map((subItem) => (
@@ -136,17 +130,15 @@ const Header = () => {
               </div>
             ))}
             <div className="mt-4 space-y-2">
-              <Link to="/login" className="block" onClick={() => setIsMenuOpen(false)}>
+              <Link to="/login" className="block">
                 <Button variant="outline" size="sm" className="w-full">
                   <User className="w-4 h-4 mr-2" />
                   Student Login
                 </Button>
               </Link>
-              <Link to="/apply-admission" onClick={() => setIsMenuOpen(false)}>
-                <Button size="sm" className="w-full bg-gradient-primary">
-                  Apply Now
-                </Button>
-              </Link>
+              <Button size="sm" className="w-full bg-gradient-primary">
+                Apply Now
+              </Button>
             </div>
           </div>
         )}

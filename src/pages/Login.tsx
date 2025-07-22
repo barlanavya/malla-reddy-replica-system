@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Eye, EyeOff, User, Lock, GraduationCap, ArrowLeft } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { useAuth } from '@/contexts/AuthContext';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,9 +12,8 @@ const Login = () => {
     rollNumber: '',
     password: ''
   });
-  const { login, isLoading } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -26,39 +24,26 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.rollNumber || !formData.password) {
-      toast({
-        title: "Validation Error",
-        description: "Please enter both roll number and password.",
-        variant: "destructive",
-      });
-      return;
-    }
+    setIsLoading(true);
 
-    try {
-      const success = await login(formData.rollNumber, formData.password);
-      
-      if (success) {
+    // Simulate login process
+    setTimeout(() => {
+      if (formData.rollNumber && formData.password) {
         toast({
           title: "Login Successful!",
           description: "Welcome to your student portal.",
         });
-        navigate('/dashboard');
+        // Here you would typically redirect to the student dashboard
+        console.log('Login attempt:', formData);
       } else {
         toast({
           title: "Login Failed",
-          description: "Invalid roll number or password. Please try again.",
+          description: "Please enter both roll number and password.",
           variant: "destructive",
         });
       }
-    } catch (error) {
-      toast({
-        title: "Login Error",
-        description: "An error occurred during login. Please try again.",
-        variant: "destructive",
-      });
-    }
+      setIsLoading(false);
+    }, 1500);
   };
 
   return (
@@ -174,15 +159,13 @@ const Login = () => {
                 >
                   Contact IT Support
                 </Button>
-                <Link to="/register">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex-1 border-university-blue text-university-blue hover:bg-university-blue hover:text-white w-full"
-                  >
-                    New Student Registration
-                  </Button>
-                </Link>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1 border-university-blue text-university-blue hover:bg-university-blue hover:text-white"
+                >
+                  New Student Registration
+                </Button>
               </div>
             </div>
           </div>
