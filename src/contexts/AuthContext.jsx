@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
 
 const AuthContext = createContext(null);
 
@@ -12,58 +13,101 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = (rollNumber, password) => {
-    // Mock authentication - in real app, this would call an API
-    if (rollNumber && password) {
-      const mockUser = {
-        rollNumber: rollNumber,
-        name: rollNumber === 'MRU123456' ? 'John Doe' : 'Student Name',
-        email: `${rollNumber.toLowerCase()}@student.mallareddyuniversity.ac.in`,
-        course: 'B.Tech Computer Science',
-        year: 2,
-        semester: 4,
-        totalFees: 150000,
-        paidAmount: 75000,
-        feesPaid: false,
-        profilePicture: null
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        setUser(session?.user ?? null);
+        setLoading(false);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const login = async (email, password) => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      
+      if (error) throw error;
+      
+      // Get student data from database
+      const { data: studentData } = await supabase
+        .from('students')
+        .select('*')
+        .eq('email', email)
+        .single();
+      
+      return { success: true, user: data.user, studentData };
+    } catch (error) {
+      console.error('Login error:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
+  const register = async (userData) => {
+    try {
+      // Create auth user
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: userData.email,
+        password: userData.password,
+      });
+
+      if (authError) throw authError;
+
+      // Create student record
+      const studentRecord = {
+        user_id: authData.user.id,
+        roll_number: `MRU${Date.now().toString().slice(-6)}`,
+        name: userData.name,
+        email: userData.email,
+        course: userData.course,
+        year: userData.year,
+        semester: userData.semester,
+        total_fees: 150000,
+        paid_amount: 0,
+        fees_paid: false,
+        phone: userData.phone,
+        address: userData.address,
+        created_at: new Date().toISOString()
       };
-      setUser(mockUser);
-      localStorage.setItem('currentUser', JSON.stringify(mockUser));
-      return true;
+
+      const { error: studentError } = await supabase
+        .from('students')
+        .insert([studentRecord]);
+
+      if (studentError) throw studentError;
+
+      return { success: true, user: authData.user };
+    } catch (error) {
+      console.error('Registration error:', error);
+      return { success: false, error: error.message };
     }
-    return false;
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('currentUser');
-  };
-
-  const register = (userData) => {
-    // Mock registration
-    const newUser = {
-      ...userData,
-      rollNumber: `MRU${Date.now().toString().slice(-6)}`,
-      totalFees: 150000,
-      paidAmount: 0,
-      feesPaid: false
-    };
-    setUser(newUser);
-    localStorage.setItem('currentUser', JSON.stringify(newUser));
-    return true;
-  };
-
-  // Check for existing session on mount
-  useState(() => {
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
+  const logout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    } catch (error) {
+      console.error('Logout error:', error);
     }
-  });
+  };
 
   const value = {
     user,
+    loading,
     login,
     logout,
     register
